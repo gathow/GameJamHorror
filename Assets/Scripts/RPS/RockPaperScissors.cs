@@ -1,22 +1,26 @@
 using UnityEngine;
-
+using System.Threading.Tasks;
+using System.Threading;
 public class RockPaperScissors : MonoBehaviour
 {
     public int playerchoice;
-    private float roomtimer = 500;
-    private int machinechoice;
-    private int movecounter = 1;
-    private int wincount;
+    public float roomtimer = 500;
+    public int machinechoice;
+    public int movecounter = 0;
+    public int wincount;
     public GameObject door;
-    public bool RockPicked;
-    public bool PaperPicked;
-    public bool ScissorsPicked;
-
+    public bool playerhasdonechoice;
+    public bool playerhasdonechoiceonce;
+    
     // Update is called once per frame
-
     void Update()
     {
-        StartTimer();
+        if (playerchoice >= 1)
+        {
+            Thread.Sleep(2000);          
+            RPSchoice();
+        }
+        roomtimer -= Time.deltaTime;
         if (movecounter == 3)
         {
             Getresults();
@@ -29,20 +33,33 @@ public class RockPaperScissors : MonoBehaviour
     void RPSchoice() // Rock=1 Paper=2 Scissors=3
     {
     machinechoice = Random.Range(1, 4);
-    
+    _ = Decidewinner();
     }
-    void Decidewinner()
+    public async System.Threading.Tasks.Task Timewaster()
     {
+        if (playerhasdonechoice == true)
+        {
+        await Task.Delay(5000);
+        }
+        playerhasdonechoice = false;
+    }
+    public async System.Threading.Tasks.Task Decidewinner()
+    {
+        while (playerchoice <= 0){
+        await Task.Yield();
+        }
         if((playerchoice == 1 && machinechoice == 3) || (playerchoice == 2 && machinechoice == 1) || (playerchoice == 3 && machinechoice == 2))
         {
             wincount ++;
             movecounter ++;
             Nextround();
+            Debug.Log("You won:" + playerchoice + machinechoice);
         }
         else
         {
            movecounter ++;
            Nextround(); 
+        
         }
     }
     void Getresults()
@@ -57,13 +74,14 @@ public class RockPaperScissors : MonoBehaviour
         roomtimer = 0;
         Currency.pointnumber += 10;
     }
-    void StartTimer()
-    {
-        roomtimer -= Time.deltaTime;
-    }
     void Nextround()
     {
-       playerchoice = 0;
-       RPSchoice();
+       Inbetweenrounds();
+    }
+    void Inbetweenrounds()
+    {
+        playerchoice = 0;
+        _ = Timewaster();
+        RPSchoice(); 
     }
 }

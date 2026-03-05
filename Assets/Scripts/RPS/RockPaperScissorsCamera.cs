@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using System.Threading.Tasks;
 public class RockPaperScissorsCamera : MonoBehaviour
 {
     public Transform target;
@@ -16,12 +16,27 @@ public class RockPaperScissorsCamera : MonoBehaviour
     }
     void Update()
     {
-        if (rps.playerchoice != 0)
+        _ = MovedOnceCheck();
+        if (rps.playerhasdonechoice == true && rps.playerhasdonechoiceonce == true)
         {
             StartCoroutine(MoveToScreen());
         }
+        if (rps.playerhasdonechoice == false && rps.playerhasdonechoiceonce == true)
+        {
+            StartCoroutine(MoveToSelect());
+        }
+
         
     }
+    public async System.Threading.Tasks.Task MovedOnceCheck()
+    {
+        while (rps.movecounter <= 0)
+        {
+        await Task.Delay(5000);
+        }
+        rps.playerhasdonechoiceonce = true;
+    }
+
 
     IEnumerator MoveOnceToTarget()
     {
@@ -34,6 +49,11 @@ public class RockPaperScissorsCamera : MonoBehaviour
     IEnumerator MoveToScreen()
     {
         transform.rotation = Quaternion.RotateTowards(transform.rotation, screentarget.rotation, upspeed * Time.deltaTime);
+        yield return null;
+    }
+    IEnumerator MoveToSelect()
+    {
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, upspeed * Time.deltaTime);
         yield return null;
     }
 }
