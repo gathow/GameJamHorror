@@ -27,12 +27,17 @@ public class RockPaperScissors : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        Renderer playerimgrenderer = playerimgshow.GetComponent<Renderer>();
-        Renderer enemyimgrenderer = enemyimgshow.GetComponent<Renderer>();
+     playerimgrenderer = playerimgshow != null ? playerimgshow.GetComponent<Renderer>() : null;
+    enemyimgrenderer  = enemyimgshow  != null ? enemyimgshow.GetComponent<Renderer>()  : null;
+
+    if (playerimgshow == null) Debug.LogError("playerimgshow is null");
+    if (enemyimgshow  == null) Debug.LogError("enemyimgshow is null");
+    if (playerimgrenderer == null) Debug.LogError("playerimgrenderer missing Renderer");
+    if (enemyimgrenderer  == null) Debug.LogError("enemyimgrenderer missing Renderer");
     }
     void Update()
     {
-        if (rpsc.lookingatscreen == true)
+        if (playerhasdonechoice == true)
         {
             ShowText();    
         }
@@ -55,14 +60,6 @@ public class RockPaperScissors : MonoBehaviour
     {
     machinechoice = Random.Range(1, 4);
     _ = Decidewinner();
-    }
-    public async System.Threading.Tasks.Task Timewaster()
-    {
-        if (playerhasdonechoice == true)
-        {
-        await Task.Delay(5000);
-        }
-        playerhasdonechoice = false;
     }
     public async System.Threading.Tasks.Task Decidewinner()
     {
@@ -106,7 +103,7 @@ public class RockPaperScissors : MonoBehaviour
     void Inbetweenrounds()
     {
         playerchoice = 0;
-        _ = Timewaster();
+        playerhasdonechoice = false;
         RPSchoice(); 
     }
     void ShowText()
@@ -116,7 +113,7 @@ public class RockPaperScissors : MonoBehaviour
        playerimgshow.SetActive(true);
        enemyimgshow.SetActive(true);
        playerimgshow.SetActive(true);
-       switch (playerchoice) 
+switch (playerchoice) 
 {
     case 1:
         playerimgrenderer.material.SetTexture("_MainTex", RockMaterial);

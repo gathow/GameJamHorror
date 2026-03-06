@@ -34,6 +34,7 @@ public class RockDetector : MonoBehaviour
         if (hit.collider.CompareTag("Rock"))
         {
             rps.playerchoice = 1;
+            rps.playerhasdonechoice = true;
             Debug.Log("Clicked on: " + hit.transform.name);
         }
     }

@@ -31,7 +31,7 @@ public class ScissorsDetector : MonoBehaviour
     Ray ray = Camera.main.ScreenPointToRay(screenPos);
     if (Physics.Raycast(ray, out RaycastHit hit))
     {
-        if (hit.collider.CompareTag("Clickable"))
+        if (hit.collider.CompareTag("Scissors"))
         {
             rps.playerchoice = 3;
             rps.playerhasdonechoice = true;
