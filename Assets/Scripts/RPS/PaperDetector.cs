@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class RockDetector : MonoBehaviour
+public class PaperDetector : MonoBehaviour
 {
     public RockPaperScissors rps;             // assign in Inspector
     public InputActionReference attackAction; // assign your attack/click action
@@ -31,9 +31,10 @@ public class RockDetector : MonoBehaviour
     Ray ray = Camera.main.ScreenPointToRay(screenPos);
     if (Physics.Raycast(ray, out RaycastHit hit))
     {
-        if (hit.collider.CompareTag("Clickable"))
+        if (hit.collider.CompareTag("Paper"))
         {
-            rps.playerchoice = 1;
+            rps.playerchoice = 2;
+            rps.playerhasdonechoice = true;
             Debug.Log("Clicked on: " + hit.transform.name);
         }
     }
