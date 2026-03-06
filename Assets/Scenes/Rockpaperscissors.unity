@@ -2771,9 +2771,6 @@ MonoBehaviour:
   machinechoice: 0
   movecounter: 0
   wincount: 0
-  door: {fileID: 0}
-  playerhasdonechoice: 0
-  playerhasdonechoiceonce: 0
   playerpickedtext: {fileID: 1397002301}
   enemypickedtext: {fileID: 1697610027}
   playerimgshow: {fileID: 1470988322}
@@ -3010,12 +3007,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RockPaperScissorsCamera
   target: {fileID: 638694245}
-  screentarget: {fileID: 1517527981}
   speed: 3
-  upspeed: 6
   arrivalThreshold: 0.01
-  rps: {fileID: 1111403935}
-  lookingatscreen: 0
 --- !u!114 &1291193621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3127,13 +3120,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291193619}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30320156, y: 0, z: 0, w: 0.95292646}
+  m_LocalRotation: {x: 0.157641, y: 0, z: 0, w: 0.98749655}
   m_LocalPosition: {x: 0, y: 4.86, z: -7.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 35.3, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 18.14, y: 0, z: 0}
 --- !u!1 &1364645849
 GameObject:
   m_ObjectHideFlags: 0
@@ -6525,37 +6518,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1517527980
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1517527981}
-  m_Layer: 0
-  m_Name: WallTransform
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1517527981
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1517527980}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.041875616, y: 0, z: 0, w: 0.99912286}
-  m_LocalPosition: {x: 0, y: 2.31, z: -3.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 4.8, y: 0, z: 0}
 --- !u!43 &1643171658
 Mesh:
   m_ObjectHideFlags: 0
@@ -6749,7 +6711,7 @@ GameObject:
   - component: {fileID: 1686116715}
   - component: {fileID: 1686116714}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7941,7 +7903,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1111403936}
   - {fileID: 638694245}
-  - {fileID: 1517527981}
   - {fileID: 1686116719}
   - {fileID: 1291193624}
   - {fileID: 1954395080}

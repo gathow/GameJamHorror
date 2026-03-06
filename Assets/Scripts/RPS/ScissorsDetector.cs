@@ -34,8 +34,7 @@ public class ScissorsDetector : MonoBehaviour
         if (hit.collider.CompareTag("Scissors"))
         {
             rps.playerchoice = 3;
-            rps.playerhasdonechoice = true;
-            Debug.Log("Clicked on: " + hit.transform.name);
+            Debug.Log("Clicked on " + hit.transform.name);
         }
     }
     }

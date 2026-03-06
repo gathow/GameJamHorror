@@ -34,8 +34,7 @@ public class PaperDetector : MonoBehaviour
         if (hit.collider.CompareTag("Paper"))
         {
             rps.playerchoice = 2;
-            rps.playerhasdonechoice = true;
-            Debug.Log("Clicked on: " + hit.transform.name);
+            Debug.Log("Clicked on " + hit.transform.name);
         }
     }
     }

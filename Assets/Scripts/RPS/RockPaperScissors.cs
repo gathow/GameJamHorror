@@ -3,14 +3,13 @@ using System.Threading.Tasks;
 using System.Threading;
 public class RockPaperScissors : MonoBehaviour
 {
+    [Header("Values")]
     public int playerchoice;
     public float roomtimer = 500;
     public int machinechoice;
     public int movecounter = 0;
-    public int wincount;
-    public GameObject door;
-    public bool playerhasdonechoice;
-    public bool playerhasdonechoiceonce;
+    public int wincount = 0;
+    [Header("Gameobjects")]
     public GameObject playerpickedtext;
     public GameObject enemypickedtext;
     public GameObject playerimgshow;
@@ -27,84 +26,53 @@ public class RockPaperScissors : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-     playerimgrenderer = playerimgshow != null ? playerimgshow.GetComponent<Renderer>() : null;
+    //get renderers for placing textures later
+    playerimgrenderer = playerimgshow != null ? playerimgshow.GetComponent<Renderer>() : null;
     enemyimgrenderer  = enemyimgshow  != null ? enemyimgshow.GetComponent<Renderer>()  : null;
-
-    if (playerimgshow == null) Debug.LogError("playerimgshow is null");
-    if (enemyimgshow  == null) Debug.LogError("enemyimgshow is null");
-    if (playerimgrenderer == null) Debug.LogError("playerimgrenderer missing Renderer");
-    if (enemyimgrenderer  == null) Debug.LogError("enemyimgrenderer missing Renderer");
+    // start round
+    RPSround();
     }
     void Update()
     {
-        if (playerhasdonechoice == true)
-        {
-            ShowText();    
-        }
-        if (playerchoice >= 1)
-        {
-            Thread.Sleep(2000);          
-            RPSchoice();
-        }
         roomtimer -= Time.deltaTime;
-        if (movecounter == 3)
-        {
-            Getresults();
-        }
-        if (roomtimer == 0)
-        {
-            door.transform.position += new Vector3(0, 7, 0);
-        }
-    }
-    void RPSchoice() // Rock=1 Paper=2 Scissors=3
-    {
-    machinechoice = Random.Range(1, 4);
-    _ = Decidewinner();
+        IsGameFinished();
     }
     public async System.Threading.Tasks.Task Decidewinner()
     {
-        while (playerchoice <= 0){
+        while (playerchoice == 0 )
+        {
         await Task.Yield();
         }
+        ShowText();
         if((playerchoice == 1 && machinechoice == 3) || (playerchoice == 2 && machinechoice == 1) || (playerchoice == 3 && machinechoice == 2))
         {
             wincount ++;
             movecounter ++;
             wintextshow.SetActive(true);
             losstextshow.SetActive(false);
-            Nextround();
-            Debug.Log("You won:" + playerchoice + machinechoice);
+            Preparenextround();
+            Debug.Log("You won, you picked :" + playerchoice);
         }
         else
         {
            movecounter ++;
            losstextshow.SetActive(true);
            wintextshow.SetActive(false);
-           Nextround(); 
-        
+           Preparenextround(); 
+           Debug.Log("You Lose, you picked :" + playerchoice);
         }
     }
-    void Getresults()
+    void IsGameFinished()
     {
-        if(wincount > 1)
+        if(wincount > 1 || movecounter == 3)
         {
-            Finishminigame();
+            roomtimer = 0;
         }
     }
-    void Finishminigame()
-    {
-        roomtimer = 0;
-        Currency.pointnumber += 10;
-    }
-    void Nextround()
-    {
-       Inbetweenrounds();
-    }
-    void Inbetweenrounds()
+    void Preparenextround()
     {
         playerchoice = 0;
-        playerhasdonechoice = false;
-        RPSchoice(); 
+        RPSround();
     }
     void ShowText()
     {
@@ -140,5 +108,11 @@ switch (machinechoice)
     
 }
     
+    }
+    void RPSround()
+    {
+        machinechoice = Random.Range(1, 4);
+        _ = Decidewinner(); // this is where players input is recieved too
+
     }
 }
