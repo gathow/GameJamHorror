@@ -8,7 +8,8 @@ public class RockPaperScissorsCamera : MonoBehaviour
     public float speed = 3.0f;
     public float upspeed = 6.0f;
     public float arrivalThreshold = 0.01f;
-    public RockPaperScissors rps;  
+    public RockPaperScissors rps; 
+    public bool lookingatscreen; 
 
     void Start()
     {
@@ -50,11 +51,13 @@ public class RockPaperScissorsCamera : MonoBehaviour
     {
         transform.rotation = Quaternion.RotateTowards(transform.rotation, screentarget.rotation, upspeed * Time.deltaTime);
         yield return null;
+        lookingatscreen = true;
     }
     IEnumerator MoveToSelect()
     {
         transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, upspeed * Time.deltaTime);
         yield return null;
+        lookingatscreen = false;
     }
 }
 

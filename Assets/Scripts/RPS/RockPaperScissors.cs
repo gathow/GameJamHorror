@@ -11,10 +11,31 @@ public class RockPaperScissors : MonoBehaviour
     public GameObject door;
     public bool playerhasdonechoice;
     public bool playerhasdonechoiceonce;
-    
+    public GameObject playerpickedtext;
+    public GameObject enemypickedtext;
+    public GameObject playerimgshow;
+    public GameObject enemyimgshow;
+    public GameObject wintextshow;
+    public GameObject losstextshow;
+    public RockPaperScissorsCamera rpsc;
+    public Texture RockMaterial;
+    public Texture PaperMaterial;
+    public Texture ScissorsMaterial;
+    private Renderer playerimgrenderer;
+    private Renderer enemyimgrenderer;
+
     // Update is called once per frame
+    void Start()
+    {
+        Renderer playerimgrenderer = playerimgshow.GetComponent<Renderer>();
+        Renderer enemyimgrenderer = enemyimgshow.GetComponent<Renderer>();
+    }
     void Update()
     {
+        if (rpsc.lookingatscreen == true)
+        {
+            ShowText();    
+        }
         if (playerchoice >= 1)
         {
             Thread.Sleep(2000);          
@@ -52,12 +73,16 @@ public class RockPaperScissors : MonoBehaviour
         {
             wincount ++;
             movecounter ++;
+            wintextshow.SetActive(true);
+            losstextshow.SetActive(false);
             Nextround();
             Debug.Log("You won:" + playerchoice + machinechoice);
         }
         else
         {
            movecounter ++;
+           losstextshow.SetActive(true);
+           wintextshow.SetActive(false);
            Nextround(); 
         
         }
@@ -83,5 +108,40 @@ public class RockPaperScissors : MonoBehaviour
         playerchoice = 0;
         _ = Timewaster();
         RPSchoice(); 
+    }
+    void ShowText()
+    {
+       playerpickedtext.SetActive(true);
+       enemypickedtext.SetActive(true);
+       playerimgshow.SetActive(true);
+       enemyimgshow.SetActive(true);
+       playerimgshow.SetActive(true);
+       switch (playerchoice) 
+{
+    case 1:
+        playerimgrenderer.material.SetTexture("_MainTex", RockMaterial);
+        break;
+    case 2:
+        playerimgrenderer.material.SetTexture("_MainTex", PaperMaterial);
+        break;
+    case 3:
+        playerimgrenderer.material.SetTexture("_MainTex", ScissorsMaterial);
+        break;
+    
+}
+switch (machinechoice)
+{
+    case 1:
+        enemyimgrenderer.material.SetTexture("_MainTex", RockMaterial);
+        break;
+    case 2:
+        enemyimgrenderer.material.SetTexture("_MainTex", PaperMaterial);
+        break;
+    case 3:
+        enemyimgrenderer.material.SetTexture("_MainTex", ScissorsMaterial);
+        break;
+    
+}
+    
     }
 }
