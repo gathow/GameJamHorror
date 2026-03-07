@@ -12,21 +12,27 @@ using UnityEngine.InputSystem;
                     private CharacterController controller;
                     private Vector3 playerVelocity;
                     private bool groundedPlayer;
-
+                    private bool _previousLocked;
                     [Header("Input Actions")]
                     public InputActionReference moveAction; 
                     public InputActionReference jumpAction;
                     public InputActionReference sprintAction;
+                    public InputActionReference previousAction;
                     private void Awake()
                     {
                         controller = gameObject.GetComponent<CharacterController>();
                     }
-
+                    void Start()
+                    {
+                      Cursor.lockState = CursorLockMode.Locked; // Corrected line
+                      _previousLocked = true;            
+                    }
                     private void OnEnable()
                     {
                         moveAction.action.Enable();
                         jumpAction.action.Enable();
                         sprintAction.action.Enable();
+                        previousAction.action.Enable();
                     }
 
                     private void OnDisable()
@@ -34,6 +40,7 @@ using UnityEngine.InputSystem;
                         moveAction.action.Disable();
                         jumpAction.action.Disable();
                         sprintAction.action.Disable();
+                        previousAction.action.Disable();
                     }
 
                     void Update()
@@ -61,7 +68,10 @@ using UnityEngine.InputSystem;
                         {
                             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravityValue);
                         }
-                        
+                        if (previousAction.action.triggered)
+                        {
+                            Hide_ShowMouseprevious();
+                        }
                         playerVelocity.y += gravityValue * Time.deltaTime;
 
                         Vector3 finalMove = (move * currentSpeed) + (playerVelocity.y * Vector3.up);
@@ -72,5 +82,18 @@ using UnityEngine.InputSystem;
         Vector3 rotation = Camera.transform.eulerAngles;
         Vector3 Mrotation = Model.transform.eulerAngles;
         Model.transform.eulerAngles = new Vector3(rotation.x, Mrotation.y, Mrotation.z);
+    }
+                   public void Hide_ShowMouseprevious()
+    {
+        if (!_previousLocked)
+        {
+            Cursor.lockState = CursorLockMode.Locked; // Corrected line
+            _previousLocked = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None; // Corrected line
+            _previousLocked = false;
+        }
     }
                 }
