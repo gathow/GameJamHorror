@@ -8831,10 +8831,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f65b9a69a9405e4c9208057b2975b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerSpeed: 2
+  playerSpeed: 3
   jumpHeight: 0
   gravityValue: -9.81
-  sprintMultiplier: 1.2
+  sprintMultiplier: 1.4
   Camera: {fileID: 232683722376825876}
   Model: {fileID: 1271513116160637737}
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
